@@ -48,7 +48,7 @@ public class HomeController {
     		break;
     	}
     	}
-    	model.addAttribute("items", list);
+    	model.addAttribute("items", list);//
     	return "index";
     }
 }
