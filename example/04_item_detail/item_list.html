@@ -31,6 +31,11 @@
             <td th:text="*{price} + ' Yen'"></td>
             <td th:text="*{description}"></td>
             <td>
+            <td>
+   				 <a th:href="@{/items/{id}(id=*{id})}">
+        		<button class="btn btn-outline-primary btn-small">確認</button>
+   				 </a>
+			</td>
                 <a th:href="@{/items/{id}(id=*{id})}">
                     <button class="btn btn-outline-primary btn-small">確認</button>
                 </a>

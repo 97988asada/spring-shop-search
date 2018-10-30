@@ -37,4 +37,25 @@ public class ItemController {
         itemRepository.save(item);
         return "redirect:/items";
     }
+    @GetMapping("{id:[0-9]+}")
+    public String getDetail(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("item", itemRepository.getOne(id));
+        return "detail";
+    }
+    @Autowired
+    ItemRepository itemRepository;
+
+    @GetMapping
+    public String index(
+            Model model,
+            @RequestParam(name = "keyword", required = false) Optional<String> keyword) {
+        List<Item> list = keyword.isPresent()
+                ? itemRepository.findByNameContainsOrderByIdAsc(keyword.get())
+                : itemRepository.findAll();
+        model.addAttribute("items", list);
+        return "index";
+    }
+}
+}
+}
 }
