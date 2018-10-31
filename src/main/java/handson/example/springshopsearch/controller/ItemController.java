@@ -22,16 +22,27 @@ public class ItemController {
         model.addAttribute("items", list);
         return "item_list";
     }
-        @GetMapping("add")
-        public String getForm() {
-            return "item_form";
+        @GetMapping("add") //URLの一番後ろについてくる奴、登録画面の追加の部分
+        public String getForm() { //変数
+            return "item_form"; //item_formの追加の部分からとってくる
+    }
+
+        @GetMapping("{id}") //もともとなかった詳細ボタンから飛ぶURL
+        public String getKousin() { //変数
+            return "item_kousin"; //item_formの追加の部分からとってくる
     }
         @Autowired
-        ItemRepository itemRepository;
+       	ItemRepository itemRepository;
 
-        @PostMapping("/add")
-        public String registerItem(Item item) {
+        @PostMapping("/add") //URLの一番後ろについてくる奴、登録画面の追加の部分
+        public String registerItem(Item item) { //変数
             itemRepository.save(item);
-            return "redirect:/items";
+            return "redirect:/items"; //itemsの登録画面に飛んでく
+        }
+        @PostMapping("{id}") //URLの一番後ろについてくる奴、登録画面の更新の部分
+        public String kousinItem(Item item) { //変数
+            itemRepository.save(item);
+            return "redirect:/items"; //itemsの登録する画面に飛んでく
         }
 }
+//getMappingやPostMappingでエラーが起こるのは、同じURLに飛んで行ってしまい、衝突してしまうため
