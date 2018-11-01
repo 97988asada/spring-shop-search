@@ -4,21 +4,23 @@
 <body>
 <div th:replace="common/navbar.html::navbar"></div>
 <div class="container">
+<div th:object="${item}"><!-- itemオブジェクトを使用するためのコード、itemの中の変数値をとってこれる -->
 <form method="post">
     <div class="form-group">
         <label for="itemName">商品名</label>
-        <input type="name" class="form-control" id="itemName" name="name">
+        <input type="text" th:value="*{name}"class="form-control" id="itemName" name="name"><!-- inputの場合はth:value="*{name}"で変数(今回は商品名)の値を取ってこれる、th:はオブジェクトを示す -->
     </div>
     <div class="form-group">
         <label for="itemDescription">説明</label>
-        <textarea type="text" class="form-control" id="itemDescription" name="description" rows="3"></textarea>
+        <textarea type="text" class="form-control" id="itemDescription" name="description" rows="3">[[ *{description} ]]</textarea><!--<textarea>となっていたら</textarea>の前に[[ *{description} ]]のように記載すると変数で持ってこれる -->
     </div>
     <div class="form-group">
         <label for="itemPrice">商品価格</label>
-        <input type="number" class="form-control" id="itemPrice" name="price">
+        <input type="number"th:value="*{price}" class="form-control" id="itemPrice" name="price"><!-- inputの場合はth:value="*{name}"で変数の値を取ってこれる、th:はオブジェクトの値 -->
     </div>
     <button class="btn btn-primary" type="submit">更新</button>
 </form>
+</div>
 </div>
 </body>
 </html>

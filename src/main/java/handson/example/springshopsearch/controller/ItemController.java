@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,16 +20,17 @@ public class ItemController {
     @GetMapping
     public String listItem(Model model) {
         List<Item> list = itemRepository.findAll();
-        model.addAttribute("items", list);
+        model.addAttribute("items", list); //登録したものを追加
         return "item_list";
     }
-        @GetMapping("add") //URLの一番後ろについてくる奴、登録画面の追加の部分
+        @GetMapping("add") //URLの一番後ろについてくる奴、登録画面の追加のページ
         public String getForm() { //変数
             return "item_form"; //item_formの追加の部分からとってくる
     }
 
         @GetMapping("{id}") //もともとなかった詳細ボタンから飛ぶURL
-        public String getKousin() { //変数
+        public String getKousin(Model model,@PathVariable("id")long id) { //変数
+        	model.addAttribute("item", itemRepository.getOne(id));
             return "item_kousin"; //item_formの追加の部分からとってくる
     }
         @Autowired
